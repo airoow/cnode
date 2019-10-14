@@ -1,0 +1,29 @@
+@import "./reset.scss";
+
+#app {
+  height: 100%;
+  overflow: auto;
+  color: #333333; 
+  background-color: #e1e1e1;
+  font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti,sans-serif!important;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}

@@ -1,6 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+//import Dashboard from '@/views/dashboard'
+
+const Message = () => import('@/views/message')
+const Login = () => import('@/views/login')
+const User = () => import('@/views/user')
+const Detail = () => import('@/views/detail')
+const Create = () => import('@/views/create')
+const Collection = () => import('@/views/collection')
+
+const Dashboard = () => import('@/views/dashboard')
+
 
 Vue.use(Router)
 
@@ -8,16 +18,38 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'Home',
+      component: Dashboard
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '/message',
+      name: 'Message',
+      component: Message
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/user/:loginname',
+      name: 'User',
+      component: User
+    },
+    {
+      path: '/detail/:id',
+      name: 'Detail',
+      component: Detail
+    },
+    {
+      path: '/create',
+      name: 'Create',
+      component: Create
+    },
+    {
+      path: '/collection/:loginName',
+      name: 'Collection',
+      component: Collection
     }
   ]
 })
