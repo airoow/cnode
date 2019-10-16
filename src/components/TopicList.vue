@@ -7,13 +7,13 @@
                         <img :src="item.author.avatar_url" alt="头像" :title="item.author.loginname" />
                     </router-link>
                 </div>
-                <div class="count">
+                <div class="count" v-if="isShow">
                     <span>{{item.reply_count}}</span>/{{item.visit_count}}
                 </div>
                 <div class="tab" :class="getTab(item).className" v-if="getTab(item).isShow">
                     {{getTab(item).text}}
                 </div>
-                <router-link class="title" :to="{name: 'Detail', params: {id: item.id}}">
+                <router-link class="title" :style="`color:${color}`" :to="{name: 'Detail', params: {id: item.id}}">
                     {{ item.title }}
                 </router-link>
             </div>
@@ -38,6 +38,10 @@ export default {
         isShow: {
             type: Boolean,
             default: true
+        },
+        color: {
+            type: String,
+            default: "#333"
         }
     },
     methods: {
@@ -147,7 +151,7 @@ export default {
                 color: #fff;
             }
             .title {
-                color: #333;
+                /* color: #333; */
                 font-size: 16px;
                 &:active {
                     color: #888;

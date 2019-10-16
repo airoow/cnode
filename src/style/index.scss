@@ -27,3 +27,16 @@ a:hover {
 .fr {
     float: right;
 }
+// 卡片样式
+.card-header {
+  padding: 10px;
+  background-color: $card-title-color;
+  height: 40px;
+  border-radius: 3px 3px 0 0;
+}
+
+.card-content {
+  background-color: #fff;
+  border-radius: 0 0 3px 3px;
+}
+

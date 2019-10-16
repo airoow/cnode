@@ -6,6 +6,7 @@ import './plugins/element.js'
 import '@/style/index.scss'
 import NProgress from 'nprogress'//引入nprogress
 import * as filters from './filters'
+import '@/style/element-variables.scss'//修改element主题色
 
 Vue.config.productionTip = false
 

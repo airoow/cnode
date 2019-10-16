@@ -2,7 +2,7 @@
     <app-card class="dashboard">
         <template #title>
             <ul class="topic-nav">
-                <li v-for='(item, index) in navlist' :key="item.tab" :class="isActive(item)?'active':''">
+                <li v-for='item in navlist' :key="item.tab" :class="isActive(item)?'active':''">
                     <router-link :to="`/?tab=${item.tab}`" @click.native="reload">
                         {{item.title}}
                     </router-link>
@@ -11,52 +11,48 @@
         </template>
         <template #content>
             <topic-list :topics="topics"/>
+            <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
         </template>
     </app-card>
 </template>
 
 <script>
-import { AppCard, TopicList } from '@/components'
+import { AppCard, TopicList, Pagination } from '@/components'
 import { fetchList } from '@/api/topic';
 
 export default {
     name: 'Dashboard',
     components: {
         AppCard,
-        TopicList
+        TopicList,
+        Pagination
     },
     data() {
         return {
             navlist: [
                 {
                     title: "全部",
-                    tab: "all",
-                    code: 0
+                    tab: "all"
                 },
                 {
                     title: "精华",
-                    tab: "good",
-                    code: 1
+                    tab: "good"
                 },
                 {
                     title: "分享",
-                    tab: "share",
-                    code: 2
+                    tab: "share"
                 },
                 {
                     title: "问答",
-                    tab: "ask",
-                    code: 3
+                    tab: "ask"
                 },
                 {
                     title: "招聘",
-                    tab: "job",
-                    code: 4
+                    tab: "job"
                 },
                 {
                     title: "客户端测试",
-                    tab: "dev",
-                    code: 5
+                    tab: "dev"
                 }
             ],
             topics: [],
@@ -65,8 +61,8 @@ export default {
                 tab: this.$route.query.tab || 'all',
                 limit: 20,
                 mdrender: true
-            }
-            
+            },
+            total: 995
         }
     },
     created() {

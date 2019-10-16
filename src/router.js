@@ -6,9 +6,7 @@ const Message = () => import('@/views/message')
 const Login = () => import('@/views/login')
 const User = () => import('@/views/user')
 const Detail = () => import('@/views/detail')
-const Create = () => import('@/views/create')
 const Collection = () => import('@/views/collection')
-
 const Dashboard = () => import('@/views/dashboard')
 
 
@@ -42,12 +40,7 @@ export default new Router({
       component: Detail
     },
     {
-      path: '/create',
-      name: 'Create',
-      component: Create
-    },
-    {
-      path: '/collection/:loginName',
+      path: '/collection/:loginname',
       name: 'Collection',
       component: Collection
     }

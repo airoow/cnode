@@ -11,10 +11,10 @@
             </div>
             <div class="title-from">
                 <span> • 发布于 {{articleData.create_at | formatDate}} • 作者 {{articleData.author.loginname}} • {{articleData.visit_count}} 次浏览 • 来自 {{getTabFrom(articleData)}}</span>
-                <span class="collect">收藏</span>
+                <span  v-if="islogin" class="collect" :class="{decollect: articleData.is_collect}" @click="toggleCollect">{{!articleData.is_collect?"收藏":"取消收藏"}}</span>
             </div>
         </div>
-        <div class="content" v-html="articleData.content"></div>
+        <div class="content markdown-text" v-html="articleData.content"></div>
         <div class="reply">
             <div class="reply-title">
                 {{articleData.reply_count}} 回复
@@ -43,6 +43,8 @@
 
 <script>
 import { detail } from '@/api/topic'
+import { collectTopic, decollectTopic } from '@/api/collect'
+import { mapState } from 'vuex'
 export default {
     name: 'Detail',
     data() {
@@ -68,10 +70,16 @@ export default {
             },
             listQuery: {
                 mdrender: true,
-                accesstoken: this.$store.state.accesstoken
+                accesstoken: this.accesstoken
             },
-            id: this.$route.params.id
+            id: this.$route.params.id,
         }
+    },
+    computed: {
+        ...mapState([
+            'islogin',
+            'accesstoken'
+        ])
     },
     created() {
         this.getArticle()
@@ -96,12 +104,27 @@ export default {
             if(data.good) {
                 return "精华"
             }
+        },
+        toggleCollect() {
+            if(this.articleData.is_collect === false) {
+                collectTopic({accesstoken: this.accesstoken, id: this.id}).then(response => {
+                    console.log(response.data.success)
+                })
+            }
+            if(this.articleData.is_collect === true) {
+                decollectTopic({accesstoken: this.accesstoken, id: this.id}).then(response => {
+                    console.log(response.data.success)
+                })
+            }
         }
     },
 }
 </script>
 
 <style lang="scss" scoped>
+.markdown-text {
+    overflow: hidden;
+}
 .detail {
     width: calc(100% - 290px);
     .title {
@@ -150,6 +173,11 @@ export default {
                     border-radius: 3px;
                     background: rgba(0, 0, 0, .1)
                 }
+            }
+            .decollect {
+                background-color:#e5e5e5;
+                color: #333;
+                width: 84px;
             }
         }
     }

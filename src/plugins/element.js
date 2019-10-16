@@ -1,4 +1,11 @@
 import Vue from 'vue'
-import { Button } from 'element-ui'
 
-Vue.use(Button)
+import { 
+    Button ,
+    Pagination,
+    Backtop,
+} from 'element-ui'
+
+Vue.use(Button);
+Vue.use(Pagination);
+Vue.use(Backtop);

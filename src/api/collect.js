@@ -5,7 +5,7 @@ export function collectTopic(data) {
     return request({
       url: '/topic_collect/collect',
       method: 'post',
-      data
+      data: data
     })
 }
 
@@ -13,9 +13,9 @@ export function collectTopic(data) {
 //取消主题
 export function decollectTopic(data) {
     return request({
-      url: '/topic_collect/de_collect',
+      url: '/topic_collect/de_collect/',
       method: 'post',
-      data
+      data: data
     })
 }
 
@@ -23,8 +23,7 @@ export function decollectTopic(data) {
 //用户所收藏的主题
 export function getUserCollections(loginname) {
     return request({
-      url: '/topic_collect',
-      method: 'get',
-      params: { loginname }
+      url: `/topic_collect/${loginname}`,
+      method: 'get'
     })
 }

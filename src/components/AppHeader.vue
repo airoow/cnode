@@ -1,11 +1,11 @@
 <template>
     <div class='layout-header'>
-        <router-link to="/" class="logo fl">
+        <router-link :to="{ path: '/', query: { tab: 'all' }}" class="logo fl">
             <img :src="logo" />
         </router-link>  
         <nav class='nav fr'>
             <router-link to="/" @click.native="reload">首页</router-link>
-            <router-link to="/message" v-if="islogin"><span v-if="messageCount" class='unread-msg'>{{messageCount}}</span>未读消息</router-link>
+            <router-link to="/message" v-if="islogin"><span v-if="messageCount>0" class='unread-msg'>{{messageCount}}</span>未读消息</router-link>
             <router-link to="/login" v-if="!islogin">登录</router-link>
             <a class="aa" @click="logout" v-if="islogin">退出</a>
         </nav>
@@ -30,10 +30,11 @@ export default {
     },
     methods: {
         reload() {
-            window.location.reload()
+            this.$router.push({ path: '/', query: { tab: 'all' }})
         },
         logout() {
             this.$store.commit('SET_LONGIN_STATUS')
+            this.$router.push({ path: '/', query: { tab: 'all' }})
         }
     }
 }
@@ -57,6 +58,14 @@ export default {
             font-size: 13px;
             &:hover {
                 color: #fff;
+            }
+            .unread-msg {
+                color: #fff;
+                font-size: 14px;
+                background-color: $theme-color;
+                margin-right: 7px;
+                padding: 1px 5px;
+                border-radius: 50%;
             }
         }
     }
